@@ -1,7 +1,7 @@
 FROM debian:latest
 MAINTAINER mikemckibben@gmail.com
 
-ENV JDK_VERSION 1.8.0_25
+ENV JDK_VERSION 1.8.0_31
 ENV JAVA_HOME /usr/local/jdk${JDK_VERSION}
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -18,7 +18,7 @@ WORKDIR /usr/local
 RUN (wget -q -O - \
     --no-check-certificate --no-cookies \
     --header "Cookie: oraclelicense=accept-securebackup-cookie" \
-    http://download.oracle.com/otn-pub/java/jdk/8u25-b17/jdk-8u25-linux-x64.tar.gz | \
+    http://download.oracle.com/otn-pub/java/jdk/8u31-b13/jdk-8u31-linux-x64.tar.gz | \
     tar --no-same-owner -xzf - ) && \
   (cd /tmp && \
    wget -q --no-check-certificate --no-cookies \
