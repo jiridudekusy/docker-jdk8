@@ -14,14 +14,9 @@ RUN yum -y update && \
 
 RUN echo LANG=en_US.UTF-8 > /etc/sysconfig/i18n
 
-RUN (wget -q -O /tmp/jdk.rpm \
-    --no-check-certificate --no-cookies \
-    --header "Cookie: oraclelicense=accept-securebackup-cookie" \
-    "$JDK_DOWNLOAD_URL" && \
-    rpm -iv /tmp/jdk.rpm && rm /tmp/jdk.rpm) && \
-    (wget -q -O /tmp/jce_policy.zip --no-cookies \
-     --header "Cookie: oraclelicense=accept-securebackup-cookie" \
-     "$JCE_POLICY_DOWNLOAD_URL" && \
+RUN (wget -q -O /tmp/jdk.rpm --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" "$JDK_DOWNLOAD_URL" && \
+     rpm -iv /tmp/jdk.rpm && rm /tmp/jdk.rpm) && \
+    (wget -q -O /tmp/jce_policy.zip --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" "$JCE_POLICY_DOWNLOAD_URL" && \
      unzip -oj -d ${JAVA_HOME}/jre/lib/security /tmp/jce_policy.zip \*/\*.jar && \
      rm /tmp/jce_policy.zip)
 RUN alternatives --install /usr/bin/java java $JAVA_HOME/bin/java 10 \
