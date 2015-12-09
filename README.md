@@ -1,4 +1,4 @@
-# docker-jdk8
+# jdk8-centos
 
 Docker build file for Centos with latest Oracle Java JDK and unlimited strength JCE jurisdiction policy files.
 
@@ -7,6 +7,6 @@ By building and using this image, you accept the [Oracle Binary Code License Agr
 ## Usage
 
 ```
-$ docker pull mikemckibben/jdk8
-$ docker run --rm=true mikemckibben/jdk8 java -version
+$ docker build -t jdk8-centos .
+$ docker run --rm=true jdk8-centos java -version
 ```
