@@ -1,4 +1,4 @@
-FROM centos:latest
+FROM centos:6
 MAINTAINER mikemckibben@gmail.com
 
 ENV LC_ALL=en_US.UTF-8 \
