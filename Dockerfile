@@ -8,9 +8,7 @@ ENV LC_ALL=en_US.UTF-8 \
 
 ENV JRE_HOME $JAVA_HOME/jre
 
-RUN yum -y update && \
-    yum -y upgrade && \
-    yum -y install curl wget tar zip unzip ca-certificates libgcc libstdc++ tzdata-java zlib
+RUN yum -y install curl wget tar zip unzip ca-certificates libgcc libstdc++ tzdata-java zlib
 
 RUN echo LANG=en_US.UTF-8 > /etc/sysconfig/i18n
 
