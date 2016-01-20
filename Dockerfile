@@ -2,9 +2,9 @@ FROM centos:latest
 MAINTAINER mikemckibben@gmail.com
 
 ENV LC_ALL=en_US.UTF-8 \
-    JDK_DOWNLOAD_URL=http://download.oracle.com/otn-pub/java/jdk/8u66-b17/jdk-8u66-linux-x64.rpm \
+    JDK_DOWNLOAD_URL=http://download.oracle.com/otn-pub/java/jdk/8u72-b15/jdk-8u72-linux-x64.rpm \
     JCE_POLICY_DOWNLOAD_URL=http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip \
-    JAVA_HOME=/usr/java/jdk1.8.0_66
+    JAVA_HOME=/usr/java/jdk1.8.0_72
 
 ENV JRE_HOME $JAVA_HOME/jre
 
