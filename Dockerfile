@@ -61,3 +61,5 @@ RUN alternatives --install /usr/bin/java java $JAVA_HOME/bin/java 10 \
   --slave /usr/bin/wsgen wsgen $JAVA_HOME/bin/wsgen \
   --slave /usr/bin/wsimport wsimport $JAVA_HOME/bin/wsimport \
   --slave /usr/bin/xjc xjc $JAVA_HOME/bin/xjc
+
+RUN sed -i "s|securerandom.source=file:/dev/random|securerandom.source=file:/dev/urandom|g" $JRE_HOME/lib/security/java.security
