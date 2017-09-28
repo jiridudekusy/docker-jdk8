@@ -1,22 +1,24 @@
 FROM centos:latest
 MAINTAINER mikemckibben@gmail.com
 
-ENV LC_ALL=en_US.UTF-8 \
-    JDK_DOWNLOAD_URL=http://download.oracle.com/otn-pub/java/jdk/8u72-b15/jdk-8u72-linux-x64.rpm \
-    JCE_POLICY_DOWNLOAD_URL=http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip \
-    JAVA_HOME=/usr/java/jdk1.8.0_72
-
+ENV JAVA_HOME /usr/java/default
+ENV LANG en_US.UTF-8
+ENV JCE_POLICY_DOWNLOAD_URL http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip
 ENV JRE_HOME $JAVA_HOME/jre
 
 RUN yum -y install curl wget tar zip unzip ca-certificates libgcc libstdc++ tzdata-java zlib
 
 RUN echo LANG=en_US.UTF-8 > /etc/sysconfig/i18n
 
-RUN (wget -q -O /tmp/jdk.rpm --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" "$JDK_DOWNLOAD_URL" && \
-     rpm -iv /tmp/jdk.rpm && rm /tmp/jdk.rpm) && \
-    (wget -q -O /tmp/jce_policy.zip --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" "$JCE_POLICY_DOWNLOAD_URL" && \
-     unzip -oj -d ${JAVA_HOME}/jre/lib/security /tmp/jce_policy.zip \*/\*.jar && \
-     rm /tmp/jce_policy.zip)
+RUN curl -v -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.rpm > jdk-8u144-linux-x64.rpm &&\
+    yum install ./jdk-8u144-linux-x64.rpm -y &&\
+    yum clean all &&\
+    rm jdk-8u144-linux-x64.rpm
+
+RUN curl -v -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" ${JCE_POLICY_DOWNLOAD_URL} > jce_policy.zip &&\
+    unzip -oj -d ${JAVA_HOME}/jre/lib/security jce_policy.zip \*/\*.jar && \
+    rm jce_policy.zip
+
 RUN alternatives --install /usr/bin/java java $JAVA_HOME/bin/java 10 \
   --slave /usr/bin/appletviewer appletviewer $JAVA_HOME/bin/appletviewer \
   --slave /usr/bin/extcheck extcheck $JAVA_HOME/bin/extcheck \
